@@ -55,10 +55,10 @@
 
             <StackPanel Orientation="Vertical" Grid.Column="1" Background="LightGray" Margin="10">
                 <TextBlock Text="Nombre del plato"></TextBlock>
-                <TextBox></TextBox>
+                <TextBox Text="{Binding Path=PlatoSeleccionado.Nombre}"></TextBox>
 
                 <TextBlock Text="Foto del plato"></TextBlock>
-                <TextBox></TextBox>
+                <TextBox Text="{Binding Path=PlatoSeleccionado.Imagen}"></TextBox>
 
                 <TextBlock Text="Tipo de Comida"></TextBlock>
                 <ComboBox>
