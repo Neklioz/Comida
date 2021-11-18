@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TypeToFont.cs" />
+    <Compile Include="TypeToImage.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,12 +65,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MainWindowVM.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +97,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\burguer.jpg" />
+    <Resource Include="Assets\cerdoagridulce.jpg" />
+    <Resource Include="Assets\dumplings.jpg" />
+    <Resource Include="Assets\fajitas.jpg" />
+    <Resource Include="Assets\hotdog.jpg" />
+    <Resource Include="Assets\tacos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\china.png" />
+    <Resource Include="Assets\mexico.png" />
+    <Resource Include="Assets\united_states.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

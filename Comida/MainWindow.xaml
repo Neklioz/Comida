@@ -5,18 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700">
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="250"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        
-        <ListBox Grid.Column="0" Margin="10">
-            
-        </ListBox>
+        Title="MainWindow" Height="700" Width="950"
+        Background="LightBlue">
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Background="Gray" Margin="10">
-        </StackPanel>
-    </Grid>
+    <Window.Resources>
+
+        <local:TypeToFont x:Key="conversorToFont"></local:TypeToFont>
+        <local:TypeToImage x:Key="conversorToImage"></local:TypeToImage>
+
+        <Style TargetType="TextBlock" x:Key="textBlock">
+            <Setter Property="FontFamily" Value="{Binding Path=Tipo, Converter={StaticResource conversorToFont}}"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    <Border Margin="10" BorderBrush="Black" BorderThickness="1" Background="White">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Platos}" SelectedItem="{Binding Path=PlatoSeleccionado}" Grid.Column="0" Margin="10">
+                
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="200" Height="200" Margin="2" BorderThickness="1" BorderBrush="Black">
+                            <DockPanel>
+                                <Viewbox DockPanel.Dock="Top" Height="30" Margin="2">
+                                    <TextBlock Text="{Binding Path=Nombre}" Style="{StaticResource textBlock}"></TextBlock>
+                                </Viewbox>
+                                <DockPanel DockPanel.Dock="Bottom" Height="30" LastChildFill="False" Margin="10">
+                                    <Image DockPanel.Dock="Left" Source="{Binding Path=Tipo, Converter={StaticResource conversorToImage}}"></Image>
+                                </DockPanel>
+                                <Image Margin="20,3" Stretch="Fill" Source="{Binding Path=Imagen}"></Image>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Background="LightGray" Margin="10">
+                <TextBlock Text="Nombre del plato"></TextBlock>
+                <TextBox></TextBox>
+
+                <TextBlock Text="Foto del plato"></TextBlock>
+                <TextBox></TextBox>
+
+                <TextBlock Text="Tipo de Comida"></TextBlock>
+                <ComboBox>
+                    <ComboBoxItem Content="Americana"></ComboBoxItem>
+                    <ComboBoxItem Content="China"></ComboBoxItem>
+                    <ComboBoxItem Content="Mexicana"></ComboBoxItem>
+                </ComboBox>
+
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
