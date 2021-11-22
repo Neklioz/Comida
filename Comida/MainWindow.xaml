@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="950"
+        Title="Comida"
+        Icon="./Assets/fruit_food_apple.ico"
+        Height="700" Width="950"
         Background="LightBlue">
 
     <Window.Resources>
@@ -13,9 +15,76 @@
         <local:TypeToFont x:Key="conversorToFont"></local:TypeToFont>
         <local:TypeToImage x:Key="conversorToImage"></local:TypeToImage>
 
-        <Style TargetType="TextBlock" x:Key="textBlock">
+        <Style TargetType="TextBlock" x:Key="tituloComida">
             <Setter Property="FontFamily" Value="{Binding Path=Tipo, Converter={StaticResource conversorToFont}}"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="textBlockLateral">
+            <Setter Property="Margin" Value="10, 5"></Setter>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="textBoxLateral">
+            <Setter Property="Margin" Value="10, 5"></Setter>
+        </Style>
+
+        <Style TargetType="ComboBox" x:Key="comboBoxLateral">
+            <Setter Property="Margin" Value="10, 5"></Setter>
+        </Style>
+
+        <Style TargetType="ListBox" x:Key="listBox">
+            <Setter Property="Margin" Value="10, 5"></Setter>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="checkBoxLateral">
+            <Setter Property="Margin" Value="10, 5"></Setter>
+        </Style>
+
+        <Style TargetType="Image" x:Key="sulfitosImage">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Sulfitos}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>                    
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image" x:Key="glutenImage">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Gluten}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image" x:Key="sojaImage">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Soja}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image" x:Key="lecheImage">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Leche}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="stackPanelLateral">
+            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="IsEnabled" Value="True"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PlatoSeleccionado}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
     </Window.Resources>
@@ -28,7 +97,7 @@
                 <ColumnDefinition Width="300"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Platos}" SelectedItem="{Binding Path=PlatoSeleccionado}" Grid.Column="0" Margin="10">
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Platos}" SelectedItem="{Binding Path=PlatoSeleccionado}" Grid.Column="0" Style="{StaticResource listBox}" Margin="10">
                 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -38,35 +107,49 @@
                 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="200" Height="200" Margin="2" BorderThickness="1" BorderBrush="Black">
+                        <Border Width="240" Height="280" Margin="10" BorderThickness="1" BorderBrush="Black" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="10" Color="Black" Opacity="0.9"></DropShadowEffect>
+                            </Border.Effect>
                             <DockPanel>
-                                <Viewbox DockPanel.Dock="Top" Height="30" Margin="2">
-                                    <TextBlock Text="{Binding Path=Nombre}" Style="{StaticResource textBlock}"></TextBlock>
+                                <Viewbox DockPanel.Dock="Top" Height="50" Margin="2">
+                                    <TextBlock Text="{Binding Path=Nombre, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource tituloComida}"></TextBlock>
                                 </Viewbox>
-                                <DockPanel DockPanel.Dock="Bottom" Height="30" LastChildFill="False" Margin="10">
-                                    <Image DockPanel.Dock="Left" Source="{Binding Path=Tipo, Converter={StaticResource conversorToImage}}"></Image>
+                                <DockPanel DockPanel.Dock="Bottom" Height="30" LastChildFill="False" Margin="20, 10">
+                                    <Image DockPanel.Dock="Left" Source="{Binding Path=Tipo, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource conversorToImage}}"></Image>
+                                    <Image DockPanel.Dock="Right" Source="./Assets/sulfide.png" Style="{StaticResource sulfitosImage}"></Image>
+                                    <Image DockPanel.Dock="Right" Source="./Assets/gluten.png" Style="{StaticResource glutenImage}"></Image>
+                                    <Image DockPanel.Dock="Right" Source="./Assets/soybean.png" Style="{StaticResource sojaImage}"></Image>
+                                    <Image DockPanel.Dock="Right" Source="./Assets/milk.png" Style="{StaticResource lecheImage}"></Image>
                                 </DockPanel>
-                                <Image Margin="20,3" Stretch="Fill" Source="{Binding Path=Imagen}"></Image>
+                                <Image Margin="20,3" Stretch="Fill" Source="{Binding Path=Imagen, UpdateSourceTrigger=PropertyChanged}"></Image>
                             </DockPanel>
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Background="LightGray" Margin="10">
-                <TextBlock Text="Nombre del plato"></TextBlock>
-                <TextBox Text="{Binding Path=PlatoSeleccionado.Nombre}"></TextBox>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Style="{StaticResource stackPanelLateral}">
+                <TextBlock Text="Nombre del plato" Style="{StaticResource textBlockLateral}"></TextBlock>
+                <TextBox Text="{Binding Path=PlatoSeleccionado.Nombre, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBoxLateral}"></TextBox>
 
-                <TextBlock Text="Foto del plato"></TextBlock>
-                <TextBox Text="{Binding Path=PlatoSeleccionado.Imagen}"></TextBox>
+                <TextBlock Text="Foto del plato" Style="{StaticResource textBlockLateral}"></TextBlock>
+                <TextBox Text="{Binding Path=PlatoSeleccionado.Imagen, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource textBoxLateral}"></TextBox>
 
-                <TextBlock Text="Tipo de Comida"></TextBlock>
-                <ComboBox>
-                    <ComboBoxItem Content="Americana"></ComboBoxItem>
-                    <ComboBoxItem Content="China"></ComboBoxItem>
-                    <ComboBoxItem Content="Mexicana"></ComboBoxItem>
+                <TextBlock Text="Tipo de Comida" Style="{StaticResource textBlockLateral}"></TextBlock>
+                <ComboBox Style="{StaticResource comboBoxLateral}" ItemsSource="{Binding Path=Tipos}" SelectedItem="{Binding Path=PlatoSeleccionado.Tipo}">
                 </ComboBox>
 
+                <GroupBox Header="Alérgenos" Margin="10" BorderBrush="Black">
+                    <UniformGrid Margin="10">
+                        <CheckBox IsChecked="{Binding Path=PlatoSeleccionado.Leche, UpdateSourceTrigger=PropertyChanged}" Content="Leche" Style="{StaticResource checkBoxLateral}"></CheckBox>
+                        <CheckBox IsChecked="{Binding Path=PlatoSeleccionado.Soja, UpdateSourceTrigger=PropertyChanged}" Content="Soja" Style="{StaticResource checkBoxLateral}"></CheckBox>
+                        <CheckBox IsChecked="{Binding Path=PlatoSeleccionado.Gluten, UpdateSourceTrigger=PropertyChanged}" Content="Gluten" Style="{StaticResource checkBoxLateral}"></CheckBox>
+                        <CheckBox IsChecked="{Binding Path=PlatoSeleccionado.Sulfitos, UpdateSourceTrigger=PropertyChanged}" Content="Sulfitos" Style="{StaticResource checkBoxLateral}"></CheckBox>
+                    </UniformGrid>
+                </GroupBox>
+
+                <Button Content="Limpiar Selección" Click="Button_Click" HorizontalAlignment="Left" Margin="10, 5"></Button>
             </StackPanel>
         </Grid>
     </Border>

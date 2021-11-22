@@ -35,10 +35,23 @@ namespace Comida
             }
         }
 
+        private ObservableCollection<string> tipos;
+
+        public ObservableCollection<string> Tipos
+        {
+            get { return tipos; }
+            set
+            {
+                tipos = value;
+                NotifyPropertyChanged("Tipos");
+            }
+        }
+
 
         public MainWindowVM()
         {
             Platos = Plato.GetSamples("./Assets/");
+            Tipos = Plato.GetTipos();
             PlatoSeleccionado = null;
         }
 

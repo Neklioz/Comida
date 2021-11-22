@@ -47,6 +47,18 @@ namespace Comida
 
             return lista;
         }
+
+        public static ObservableCollection<string> GetTipos()
+        {
+            ObservableCollection<string> lista = new ObservableCollection<string>
+            {
+                "Americana",
+                "China",
+                "Mexicana"
+            };
+
+            return lista;
+        }
     }
 
 }
